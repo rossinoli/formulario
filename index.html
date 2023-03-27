@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="styles.css">
+    <title>Formulário de Funcionário</title>
+</head>
+<body>
+	<div class="container">
+    <form id="form" class="form">
+
+	<div class="form-control">	
+    <label for="name">Nome:</label>
+    <input type="text" id="name" required placeholder="Digite seu nome completo..."/>
+    </div>
+
+	<div class="form-control">
+    <label for="birthdate">Data Nasc:</label>
+	<input type="text" id="birthdate" required pattern="\d{2}/\d{2}/\d{4}" placeholder="00/00/0000">
+	</div>
+
+	<div class="form-control">
+	<label for="cpf">CPF:</label>
+	<input type="text" id="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" placeholder="000.000.000-00">
+	</div>
+
+	<div class="form-control">
+	<label for="cep">CEP:</label>
+	<input type="text" id="cep" required pattern="\d{5}-\d{3}" placeholder="00000-000">
+	</div>
+
+	<div class="form-control">
+	<label for="salary">Salário:</label>
+	<input type="text" id="salary" required pattern="\d+\.\d{2}" placeholder="0+.00">
+	</div>
+
+	<div class="form-control">
+	<label for="phone">Telefone:</label>
+	<input type="text" id="phone" required pattern="\(\d{2}\)\d{4}-\d{4}" placeholder="(000)0000-0000">
+	</div>
+
+	<div class="form-control">
+	<label for="mobile">Celular:</label>
+	<input type="text" id="mobile" required pattern="\((14)\)\d{5}-\d{4}" placeholder="(14)00000-0000">
+	</div>
+
+
+	<button type="submit">Enviar</button>
+</form>
+</div>
+
+<script>
+	function applyMasks() {
+		createMask('birthdate', ['\d', '\d', '/', '\d', '\d', '/', '\d', '\d']);
+		createMask('cpf', ['\d', '\d', '\d', '.', '\d', '\d', '\d', '.', '\d', '\d', '\d', '-', '\d', '\d']);
+		createMask('cep', ['\d', '\d', '.', '\d', '\d', '\d', '-', '\d', '\d', '\d']);
+		createMask('salary', ['\d', '\d', '\d', ',', '\d', '\d', '\d', '.', '\d', '\d']);
+		createMask('phone', ['(', '\d', '\d', ')', '\d', '\d', '\d', '\d', '-', '\d', '\d', '\d', '\d']);
+		createMask('mobile', ['(', '14', ')', '\d', '\d', '\d', '\d', '-', '\d', '\d', '\d', '\d']);
+	}
+
+	function createMask(inputId, mask) {
+		var input = document.getElementById(inputId);
+		input.addEventListener('input', function (event) {
+			var value = event.target.value;
+			var newValue = '';
+			var j = 0;
+			for (var i = 0; i < mask.length && j < value.length; i++) {
+				if (mask[i] === '\d') {
+					newValue += value[j];
+					j++;
+				} else {
+					newValue += mask[i];
+				}
+			}
+			event.target.value = newValue;
+		});
+	}
+</script>  
+</body>
+</html>
